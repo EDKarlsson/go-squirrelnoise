@@ -1,5 +1,7 @@
 # SquirrelNoise5 - Squirrel's Raw Noise utilities (version 5)
 
+>> Erik Karlsson: I'm not the original author of this code. Just wanted to convert this into Go for a side project. Will make this a module at some point to be importable.
+
 This code is made available under the Creative Commons attribution 3.0 license (CC-BY-3.0 US):
 Attribution in source code comments (even closed-source/commercial code) is sufficient. License summary and text
 available at: https://creativecommons.org/licenses/by/3.0/us/
