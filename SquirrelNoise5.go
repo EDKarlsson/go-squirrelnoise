@@ -1,4 +1,4 @@
-package squirrelnoise
+package go_squirrelnoise
 
 // -----------------------------------------------------------------------------------------------
 // SquirrelNoise5.go

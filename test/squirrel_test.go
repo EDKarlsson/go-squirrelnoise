@@ -1,7 +1,8 @@
 package test
 
 import (
-	. "github.com/edkarlsson/go-squirrelnoise/pkg/squirrelnoise"
+	"fmt"
+	. "github.com/edkarlsson/go-squirrelnoise"
 	"strconv"
 	"testing"
 )
@@ -12,20 +13,30 @@ func TestSquirrelNoise5(t *testing.T) {
 	if got := SquirrelNoise5(0, 0); got != want {
 		t.Errorf("SquirrelNoise5(0,0) = %d; want %d", got, want)
 	}
-	arrLen := 100000
+	arrLen := 1000000
 	uniqueMap := make(map[string]uint)
+	nonUnique := 0
 	var res uint32 = 0
 	for i := 0; i < arrLen; i++ {
+		// prevRes := res
 		res = SquirrelNoise5(int32(i), res)
 		randK := strconv.FormatInt(int64(res), 10)
 
-		if val, ok := uniqueMap[randK]; ok {
+		if _, ok := uniqueMap[randK]; ok {
 			uniqueMap[randK]++
-		} else if val == 1 {
-			t.Errorf("SquirrelNoise5(%d, 0) = %s was not unique", i, randK)
+			if uniqueMap[randK] > 1 {
+				// fmt.Printf("Found non unique SquirrelNoise5(%d, %d)=%s, count=%d\n", i, prevRes, randK, uniqueMap[randK])
+				nonUnique += 1
+			}
 		} else {
 			uniqueMap[randK] = 1
 		}
+	}
+	fmt.Printf("Number of random values generated = %d\n", arrLen)
+	fmt.Printf("Number of repeated values found = %d\n", nonUnique)
+	fmt.Printf("Percent of collisions = %1.6f\n", float64(nonUnique)/float64(arrLen))
+	if float64(nonUnique)/float64(arrLen) > 1 {
+		t.Errorf("More than 1%% of the values of %d were repeated", arrLen)
 	}
 }
 
